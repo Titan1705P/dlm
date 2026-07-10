@@ -21,6 +21,7 @@ class VLLMRunner(BaseRunner):
             data_parallel_size=getattr(args, "data_parallel_size", 1),
             dtype=args.dtype,
             max_model_len=getattr(args, "max_model_len", None),
+            gpu_memory_utilization=getattr(args, "gpu_memory_utilization", 0.9),
             enforce_eager=True,
             disable_custom_all_reduce=True,
             enable_prefix_caching=args.enable_prefix_caching,

@@ -14,6 +14,7 @@ TP_SIZE=1
 DP_SIZE=1
 DTYPE="bfloat16"
 MAX_MODEL_LEN=8192
+GPU_MEM_UTIL=0.8          # lower from default 0.9 to avoid conflict with other processes
 NUM_EVAL_PROCS=12
 TIMEOUT=10
 # ─────────────────────────────────────────────────────────────────────────────
@@ -42,6 +43,7 @@ python -m lcb_runner.runner.main \
     --data_parallel_size "${DP_SIZE}" \
     --dtype "${DTYPE}" \
     --max_model_len "${MAX_MODEL_LEN}" \
+    --gpu_memory_utilization "${GPU_MEM_UTIL}" \
     --num_process_evaluate "${NUM_EVAL_PROCS}" \
     --timeout "${TIMEOUT}" \
     --evaluate

@@ -118,6 +118,12 @@ def get_args():
         help="Data parallel size for vllm (run N model copies across GPUs)",
     )
     parser.add_argument(
+        "--gpu_memory_utilization",
+        type=float,
+        default=0.9,
+        help="GPU memory utilization for vllm (0.0-1.0)",
+    )
+    parser.add_argument(
         "--custom_output_file",
         type=str,
         default=None,
