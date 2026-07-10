@@ -18,6 +18,7 @@ class VLLMRunner(BaseRunner):
             model=model_tokenizer_path,
             tokenizer=model_tokenizer_path,
             tensor_parallel_size=args.tensor_parallel_size,
+            data_parallel_size=getattr(args, "data_parallel_size", 1),
             dtype=args.dtype,
             max_model_len=getattr(args, "max_model_len", None),
             enforce_eager=True,

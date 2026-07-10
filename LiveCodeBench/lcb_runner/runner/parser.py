@@ -112,6 +112,12 @@ def get_args():
         help="Max model context length for vllm (limits KV cache allocation)",
     )
     parser.add_argument(
+        "--data_parallel_size",
+        type=int,
+        default=1,
+        help="Data parallel size for vllm (run N model copies across GPUs)",
+    )
+    parser.add_argument(
         "--custom_output_file",
         type=str,
         default=None,

@@ -9,10 +9,11 @@ N_SAMPLES=10
 TEMPERATURE=0.2
 TOP_P=0.95
 MAX_TOKENS=2048
-GPU="1"                  # GPU 0 has a running vLLM process; single GPU is fastest for 4B model
-TP_SIZE=1                # tensor parallel size
+GPU="0,1,2,3,4,5,6,7"    # all 8 B200s
+TP_SIZE=1                 # no tensor parallelism (model fits on 1 GPU)
+DP_SIZE=8                 # data parallelism: 8 copies, 8× throughput
 DTYPE="bfloat16"
-MAX_MODEL_LEN=8192        # cap context to avoid KV cache OOM
+MAX_MODEL_LEN=8192
 NUM_EVAL_PROCS=12
 TIMEOUT=10
 # ─────────────────────────────────────────────────────────────────────────────
@@ -38,6 +39,7 @@ python -m lcb_runner.runner.main \
     --top_p "${TOP_P}" \
     --max_tokens "${MAX_TOKENS}" \
     --tensor_parallel_size "${TP_SIZE}" \
+    --data_parallel_size "${DP_SIZE}" \
     --dtype "${DTYPE}" \
     --max_model_len "${MAX_MODEL_LEN}" \
     --num_process_evaluate "${NUM_EVAL_PROCS}" \
