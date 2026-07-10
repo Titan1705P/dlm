@@ -5,8 +5,8 @@ set -euo pipefail
 MODEL="Qwen/Qwen3-4B-Instruct-2507"
 RELEASE="release_v6"
 SCENARIO="codegeneration"
-N_SAMPLES=10
-TEMPERATURE=0.2
+N_SAMPLES=1
+TEMPERATURE=0.0
 TOP_P=0.95
 MAX_TOKENS=2048
 GPU="0"
