@@ -12,12 +12,10 @@ MAX_TOKENS=2048
 GPU="1"                  # GPU 0 has a running vLLM process; single GPU is fastest for 4B model
 TP_SIZE=1                # tensor parallel size
 DTYPE="bfloat16"
+MAX_MODEL_LEN=8192        # cap context to avoid KV cache OOM
 NUM_EVAL_PROCS=12
 TIMEOUT=10
 # ─────────────────────────────────────────────────────────────────────────────
-
-eval "$(conda shell.bash hook)"
-conda activate dlm-eval
 
 export CUDA_VISIBLE_DEVICES="${GPU}"
 
@@ -41,6 +39,7 @@ python -m lcb_runner.runner.main \
     --max_tokens "${MAX_TOKENS}" \
     --tensor_parallel_size "${TP_SIZE}" \
     --dtype "${DTYPE}" \
+    --max_model_len "${MAX_MODEL_LEN}" \
     --num_process_evaluate "${NUM_EVAL_PROCS}" \
     --timeout "${TIMEOUT}" \
     --evaluate

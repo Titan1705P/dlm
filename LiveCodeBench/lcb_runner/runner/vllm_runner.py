@@ -19,6 +19,7 @@ class VLLMRunner(BaseRunner):
             tokenizer=model_tokenizer_path,
             tensor_parallel_size=args.tensor_parallel_size,
             dtype=args.dtype,
+            max_model_len=getattr(args, "max_model_len", None),
             enforce_eager=True,
             disable_custom_all_reduce=True,
             enable_prefix_caching=args.enable_prefix_caching,

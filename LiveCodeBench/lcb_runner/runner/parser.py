@@ -106,6 +106,12 @@ def get_args():
         help="Enable prefix caching for vllm",
     )
     parser.add_argument(
+        "--max_model_len",
+        type=int,
+        default=None,
+        help="Max model context length for vllm (limits KV cache allocation)",
+    )
+    parser.add_argument(
         "--custom_output_file",
         type=str,
         default=None,

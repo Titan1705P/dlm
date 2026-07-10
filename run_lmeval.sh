@@ -9,9 +9,6 @@ BATCH_SIZE="auto"
 NUM_FEWSHOT=5
 # ─────────────────────────────────────────────────────────────────────────────
 
-eval "$(conda shell.bash hook)"
-conda activate dlm-eval
-
 export CUDA_VISIBLE_DEVICES="${GPU}"
 
 echo "=== Running lm-evaluation-harness ==="
