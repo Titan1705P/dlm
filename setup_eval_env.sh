@@ -10,6 +10,9 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 echo "=== Installing vLLM (>=0.24.0 for DiffusionGemma) ==="
 pip install "vllm>=0.24.0"
 
+echo "=== Patching vLLM FlashInfer for DiffusionGemma ==="
+bash "$(dirname "$0")/patch_vllm_flashinfer.sh"
+
 echo "=== Installing flash-attn ==="
 # Try pre-built wheel first, fall back to source build
 pip install flash-attn 2>/dev/null || pip install flash-attn --no-build-isolation 2>/dev/null || echo "WARNING: flash-attn install failed, will use triton attention backend"

@@ -20,7 +20,6 @@ TIMEOUT=10
 # ─────────────────────────────────────────────────────────────────────────────
 
 export CUDA_VISIBLE_DEVICES="${GPU}"
-export VLLM_ATTENTION_BACKEND="TRITON_ATTN"
 
 echo "=== Running LiveCodeBench ${RELEASE} ==="
 echo "  Model:       ${MODEL}"
