@@ -9,6 +9,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 echo "=== Installing vLLM (>=0.24.0 for DiffusionGemma) ==="
 pip install "vllm>=0.24.0"
+pip install flash-attn --no-build-isolation
 
 echo "=== Installing LiveCodeBench ==="
 pip install -e ./LiveCodeBench
@@ -21,5 +22,5 @@ echo "=== Installing additional dependencies ==="
 pip install transformers tokenizers sentencepiece protobuf huggingface_hub
 
 echo "=== Done ==="
-echo "Verify: python -c 'import vllm; print(vllm.__version__)'"
+python -c 'import vllm; print(vllm.__version__)'
 
