@@ -3,7 +3,7 @@ set -euo pipefail
 
 # ── Config (edit these defaults) ─────────────────────────────────────────────
 MODEL="Qwen/Qwen3-4B-Instruct-2507"
-TASKS="mmlu_pro,gpqa_diamond"
+TASKS="mmlu_pro,gpqa_diamond_zeroshot"
 GPU="0"
 BATCH_SIZE="auto"
 NUM_FEWSHOT=5
