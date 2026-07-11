@@ -9,7 +9,10 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 echo "=== Installing vLLM (>=0.24.0 for DiffusionGemma) ==="
 pip install "vllm>=0.24.0"
-pip install flash-attn --no-build-isolation
+
+echo "=== Installing flash-attn ==="
+# Try pre-built wheel first, fall back to source build
+pip install flash-attn 2>/dev/null || pip install flash-attn --no-build-isolation 2>/dev/null || echo "WARNING: flash-attn install failed, will use triton attention backend"
 
 echo "=== Installing LiveCodeBench ==="
 pip install -e ./LiveCodeBench
