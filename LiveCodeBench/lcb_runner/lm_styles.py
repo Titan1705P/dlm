@@ -700,6 +700,13 @@ LanguageModelList: list[LanguageModel] = [
         link="https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507",
     ),
     LanguageModel(
+        "google/diffusiongemma-26B-A4B-it",
+        "DiffusionGemma-26B-A4B-it",
+        LMStyle.GenericBase,
+        datetime(2026, 6, 10),
+        link="https://huggingface.co/google/diffusiongemma-26B-A4B-it",
+    ),
+    LanguageModel(
         "azerogpt",
         "AzeroGPT-64b",
         LMStyle.CodeQwenInstruct,
