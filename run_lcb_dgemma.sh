@@ -14,7 +14,7 @@ TP_SIZE=8
 DP_SIZE=1
 DTYPE="bfloat16"
 MAX_MODEL_LEN=8192
-GPU_MEM_UTIL=0.9
+GPU_MEM_UTIL=0.7
 NUM_EVAL_PROCS=12
 TIMEOUT=10
 # ─────────────────────────────────────────────────────────────────────────────
