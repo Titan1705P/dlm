@@ -9,7 +9,7 @@ pip install -e ./LiveCodeBench
 pip install "datasets<3.0"
 
 echo "=== Installing lm-evaluation-harness ==="
-pip install lm-eval
+pip install lm-eval accelerate
 
 echo "=== Done ==="
 
