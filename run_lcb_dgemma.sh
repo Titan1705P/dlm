@@ -20,6 +20,7 @@ TIMEOUT=10
 # ─────────────────────────────────────────────────────────────────────────────
 
 export CUDA_VISIBLE_DEVICES="${GPU}"
+export TORCH_DYNAMO_DISABLE=1
 
 echo "=== Running LiveCodeBench ${RELEASE} ==="
 echo "  Model:       ${MODEL}"
