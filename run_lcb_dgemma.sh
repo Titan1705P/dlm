@@ -20,7 +20,6 @@ TIMEOUT=10
 # ─────────────────────────────────────────────────────────────────────────────
 
 export CUDA_VISIBLE_DEVICES="${GPU}"
-export VLLM_ATTENTION_BACKEND="TRITON_ATTN"
 
 echo "=== Running LiveCodeBench ${RELEASE} ==="
 echo "  Model:       ${MODEL}"
@@ -46,6 +45,7 @@ python -m lcb_runner.runner.main \
     --dtype "${DTYPE}" \
     --max_model_len "${MAX_MODEL_LEN}" \
     --gpu_memory_utilization "${GPU_MEM_UTIL}" \
+    --attention_backend "TRITON_ATTN" \
     --num_process_evaluate "${NUM_EVAL_PROCS}" \
     --timeout "${TIMEOUT}" \
     --evaluate

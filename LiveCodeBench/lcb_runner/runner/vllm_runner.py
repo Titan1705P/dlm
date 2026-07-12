@@ -1,3 +1,6 @@
+import os
+os.environ.setdefault("VLLM_ATTENTION_BACKEND", "FLASHINFER")
+
 try:
     from transformers import AutoTokenizer
     from vllm import LLM, SamplingParams
@@ -14,6 +17,10 @@ class VLLMRunner(BaseRunner):
         model_tokenizer_path = (
             model.model_name if args.local_model_path is None else args.local_model_path
         )
+        attn_backend = getattr(args, "attention_backend", None)
+        extra_kwargs = {}
+        if attn_backend:
+            extra_kwargs["attention_config"] = {"backend": attn_backend}
         self.llm = LLM(
             model=model_tokenizer_path,
             tokenizer=model_tokenizer_path,
@@ -26,6 +33,7 @@ class VLLMRunner(BaseRunner):
             disable_custom_all_reduce=True,
             enable_prefix_caching=args.enable_prefix_caching,
             trust_remote_code=args.trust_remote_code,
+            **extra_kwargs,
         )
         self.sampling_params = SamplingParams(
             n=self.args.n,

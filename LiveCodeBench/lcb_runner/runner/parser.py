@@ -124,6 +124,12 @@ def get_args():
         help="GPU memory utilization for vllm (0.0-1.0)",
     )
     parser.add_argument(
+        "--attention_backend",
+        type=str,
+        default=None,
+        help="Attention backend for vllm (e.g., TRITON_ATTN, FLASH_ATTN, FLASHINFER)",
+    )
+    parser.add_argument(
         "--custom_output_file",
         type=str,
         default=None,
