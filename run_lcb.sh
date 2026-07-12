@@ -49,4 +49,64 @@ python -m lcb_runner.runner.main \
     --evaluate
 
 echo ""
-echo "=== Done. Results in LiveCodeBench/output/${MODEL}/ ==="
+echo "=== Done. Results in LiveCodeBench/output/ ==="
+echo ""
+
+# Display score and sample trajectories
+python3 -c "
+import json, glob, os
+
+# Find the eval_all file
+pattern = 'output/**/Scenario.codegeneration_*_eval_all.json'
+files = glob.glob(pattern, recursive=True)
+if not files:
+    print('No eval results found.')
+    exit()
+
+eval_file = sorted(files)[-1]
+with open(eval_file) as f:
+    data = json.load(f)
+
+# Compute pass@1
+total = len(data)
+passed_count = sum(1 for item in data if item.get('pass@1', 0) > 0)
+score = passed_count / total if total > 0 else 0
+
+print('=' * 60)
+print(f'  SCORE: pass@1 = {score:.4f} ({passed_count}/{total})')
+print('=' * 60)
+print()
+
+# Collect passed and failed
+passed = [item for item in data if item.get('pass@1', 0) > 0]
+failed = [item for item in data if item.get('pass@1', 0) == 0]
+
+def show(item, label):
+    print(f'── {label} ──')
+    print(f'  Title:      {item[\"question_title\"]}')
+    print(f'  Difficulty: {item[\"difficulty\"]}')
+    print(f'  Platform:   {item[\"platform\"]}')
+    code = (item.get('code_list') or [''])[0]
+    lines = code.strip().split('\n')
+    preview = '\n'.join(lines[:12])
+    if len(lines) > 12:
+        preview += f'\n    ... ({len(lines)-12} more lines)'
+    print(f'  Code:')
+    for l in preview.split('\n'):
+        print(f'    {l}')
+    print()
+
+print('── PASSING SAMPLES ──')
+print()
+for item in passed[:2]:
+    show(item, 'PASS')
+
+print('── FAILING SAMPLES ──')
+print()
+for item in failed[:2]:
+    meta = (item.get('metadata') or [''])[0]
+    if 'timeout' in meta.lower() or 'time limit' in meta.lower():
+        show(item, 'TIMEOUT')
+    else:
+        show(item, 'WRONG ANSWER')
+"

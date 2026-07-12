@@ -17,6 +17,8 @@ echo "  Tasks: ${TASKS}"
 echo "  GPU:   ${GPU}"
 echo ""
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
 lm_eval \
     --model vllm \
     --model_args "pretrained=${MODEL},dtype=bfloat16,trust_remote_code=True,max_model_len=16384,gpu_memory_utilization=0.8" \
@@ -24,7 +26,8 @@ lm_eval \
     --batch_size "${BATCH_SIZE}" \
     --num_fewshot "${NUM_FEWSHOT}" \
     --gen_kwargs "max_gen_toks=12000,temperature=0.0" \
-    --output_path "$(dirname "$0")/eval_results/lm_eval"
+    --log_samples \
+    --output_path "${SCRIPT_DIR}/eval_results/lm_eval"
 
 echo ""
 echo "============================================================"
@@ -35,7 +38,7 @@ echo "============================================================"
 python3 -c "
 import json, glob, os
 
-result_dir = '$(dirname \"\$0\")/eval_results/lm_eval'
+result_dir = '${SCRIPT_DIR}/eval_results/lm_eval'
 files = glob.glob(os.path.join(result_dir, '**', 'results.json'), recursive=True)
 if not files:
     print('  No results found.')
