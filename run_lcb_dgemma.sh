@@ -8,13 +8,13 @@ SCENARIO="codegeneration"
 N_SAMPLES=1
 TEMPERATURE=0.0
 TOP_P=0.95
-MAX_TOKENS=2048
+MAX_TOKENS=4096
 GPU="0"
 TP_SIZE=1
 DP_SIZE=1
 DTYPE="bfloat16"
 MAX_MODEL_LEN=8192
-GPU_MEM_UTIL=0.7
+GPU_MEM_UTIL=0.85
 NUM_EVAL_PROCS=12
 TIMEOUT=10
 # ─────────────────────────────────────────────────────────────────────────────

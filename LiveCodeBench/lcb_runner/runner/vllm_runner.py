@@ -18,9 +18,17 @@ class VLLMRunner(BaseRunner):
             model.model_name if args.local_model_path is None else args.local_model_path
         )
         attn_backend = getattr(args, "attention_backend", None)
+        is_diffusion = "diffusiongemma" in model_tokenizer_path.lower()
         extra_kwargs = {}
         if attn_backend:
             extra_kwargs["attention_config"] = {"backend": attn_backend}
+        if is_diffusion:
+            extra_kwargs["max_num_seqs"] = 4
+            extra_kwargs["hf_overrides"] = {
+                "diffusion_sampler": "entropy_bound",
+                "diffusion_entropy_bound": 0.1,
+            }
+            extra_kwargs["generation_config"] = "vllm"
         self.llm = LLM(
             model=model_tokenizer_path,
             tokenizer=model_tokenizer_path,
